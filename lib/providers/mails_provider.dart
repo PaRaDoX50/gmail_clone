@@ -53,7 +53,7 @@ class Mails with ChangeNotifier {
     var response = await db.update(
         "Mail", {"isFavourite": isFavourite.toString()},
         where: "datedate = ?", whereArgs: [date.toIso8601String()]);
-    print(response.toString() + isFavourite.toString());
+
     return response;
   }
 

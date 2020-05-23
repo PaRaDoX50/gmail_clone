@@ -18,13 +18,14 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<Mail>> desiredMails;
 
   Future<List<Mail>> changeDesiredMails(Mails data, String keyword) async {
-    print("hellofromsearch");
+    String key = keyword.toLowerCase();
+
     final allMails = await data.getAllMails();
     return allMails.where((e) {
-      return e.to.contains(keyword) ||
-          e.from.contains(keyword) ||
-          e.description.contains(keyword) ||
-          e.subject.contains(keyword);
+      return e.to.toLowerCase().contains(key) ||
+          e.from.toLowerCase().contains(key) ||
+          e.description.toLowerCase().contains(key) ||
+          e.subject.toLowerCase().contains(key);
     }).toList();
   }
 

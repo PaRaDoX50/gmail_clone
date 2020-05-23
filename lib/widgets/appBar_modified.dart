@@ -7,9 +7,9 @@ class AppBarModified extends PreferredSize {
   AppBarModified(this.contextMain);
 
   void search(String string, BuildContext ctx) {
-    print("heloo");
+
     Navigator.of(ctx).pushNamed(SearchScreen.route, arguments: string);
-    print("heloo");
+
   }
 
   @override

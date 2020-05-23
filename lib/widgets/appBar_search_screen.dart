@@ -7,9 +7,7 @@ class AppBarSearchScreen extends PreferredSize {
 
 
   void search(String string){
-    print("heloo");
     Navigator.of(contextMain).pushReplacementNamed(SearchScreen.route,arguments: string);
-    print("heloo");
 
   }
   void onBackPressed(){

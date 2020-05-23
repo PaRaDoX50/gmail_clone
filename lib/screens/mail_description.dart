@@ -66,7 +66,6 @@ class _MailDescriptionState extends State<MailDescription> {
 
     final from = mail.from;
     final to = mail.to;
-    print(mail.isFavourite.toString() + "descrip");
 
     return Scaffold(
       backgroundColor: Colors.white,

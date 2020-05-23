@@ -14,7 +14,6 @@ class MailTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mail = Provider.of<Mail>(context,listen: false);
-    print(mail.isFavourite.toString()+"fromTile");
     final toName = mail.to.split("@")[0];
 
 
