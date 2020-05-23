@@ -41,61 +41,61 @@ class _SearchScreenState extends State<SearchScreen> {
       child: FutureBuilder<List<Mail>>(
           future: desiredMails,
           builder: (context, AsyncSnapshot<List<Mail>> snapshot) {
-            if (snapshot.hasData) {
-              return Scaffold(
-                backgroundColor: Colors.white,
-                body: CustomScrollView(slivers: <Widget>[
-                  SliverAppBar(
-                    floating: true,
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    flexibleSpace: AppBarSearchScreen(context),
-                    bottom: PreferredSize(
-                      // Add this code
-                      preferredSize: Size.fromHeight(05.0), // Add this code
-                      child: Text(''), // Add this code
-                    ),
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: CustomScrollView(slivers: <Widget>[
+                SliverAppBar(
+                  floating: true,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  flexibleSpace: AppBarSearchScreen(context),
+                  bottom: PreferredSize(
+                    // Add this code
+                    preferredSize: Size.fromHeight(05.0), // Add this code
+                    child: Text(''), // Add this code
                   ),
-                  SliverToBoxAdapter(
-                    child: Container(
-                        margin: EdgeInsets.only(left: 16, bottom: 8, top: 16),
-                        child: Text(
-                          "Search Results",
-                          style: TextStyle(color: Colors.grey[600]),
-                        )),
-                  ),
-                  snapshot.data.isEmpty
-                      ? SliverToBoxAdapter(
-                          child: Center(
-                              child: Image(
-                          image: AssetImage("assets/images/no_result.png"),
-                        )))
-                      : SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (_, index) {
-                              return ChangeNotifierProvider.value(
-                                  value: snapshot.data[index],
-                                  child: Dismissible(
-                                    background: Container(
-                                      color: Colors.red,
-                                    ),
-                                    key: UniqueKey(),
-                                    child: MailTile(),
-                                    onDismissed: (_) {
-                                      String date = snapshot.data[index].date
-                                          .toIso8601String();
-                                      snapshot.data.removeAt(index);
-                                      data.deleteMailWithDate(date);
-                                    },
-                                  ));
-                            },
-                            childCount: snapshot.data.length,
-                          ),
-                        )
-                ]),
-              );
-            }
-            return Center(child: CircularProgressIndicator());
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                      margin: EdgeInsets.only(left: 16, bottom: 8, top: 16),
+                      child: Text(
+                        "Search Results",
+                        style: TextStyle(color: Colors.grey[600]),
+                      )),
+                ),
+                snapshot.hasData
+                    ? (snapshot.data.isEmpty
+                        ? SliverToBoxAdapter(
+                            child: Center(
+                                child: Image(
+                            image: AssetImage("assets/images/no_result.png"),
+                          )))
+                        : SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (_, index) {
+                                return ChangeNotifierProvider.value(
+                                    value: snapshot.data[index],
+                                    child: Dismissible(
+                                      background: Container(
+                                        color: Colors.red,
+                                      ),
+                                      key: UniqueKey(),
+                                      child: MailTile(),
+                                      onDismissed: (_) {
+                                        String date = snapshot.data[index].date
+                                            .toIso8601String();
+                                        snapshot.data.removeAt(index);
+                                        data.deleteMailWithDate(date);
+                                      },
+                                    ));
+                              },
+                              childCount: snapshot.data.length,
+                            ),
+                          ))
+                    : SliverFillRemaining(
+                        child: Center(child: CircularProgressIndicator())),
+              ]),
+            );
           }),
     );
   }

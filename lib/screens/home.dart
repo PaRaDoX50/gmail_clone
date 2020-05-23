@@ -17,7 +17,8 @@ class _HomeState extends State<Home> {
       body: OnlyOnePointerRecognizerWidget(child: MailList()),
       //copied the Onlyonepoi..... from the internet.It disables multi touches. Did it so that the swipe to delete does not misbehaves.
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+        backgroundColor: Colors.white,
+          child: Icon(Icons.add,color: Colors.grey[700],size: 35,),
           onPressed: () => Navigator.of(context).pushNamed(NewMail.route)),
     );
   }

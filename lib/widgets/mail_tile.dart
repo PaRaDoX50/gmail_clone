@@ -13,7 +13,7 @@ class MailTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mail = Provider.of<Mail>(context);
+    final mail = Provider.of<Mail>(context,listen: false);
     print(mail.isFavourite.toString()+"fromTile");
     final toName = mail.to.split("@")[0];
 
@@ -34,7 +34,7 @@ class MailTile extends StatelessWidget {
                     firstLetter.toUpperCase(),
                     style: TextStyle(color: Colors.white,fontSize: 25),
                   ),
-                  backgroundColor: AvatarColors().getColorForChar(firstLetter),
+                  backgroundColor: AvatarColors().getColorForChar(firstLetter.toLowerCase()),
                   radius: 20,
                 ),
               ],
@@ -43,12 +43,17 @@ class MailTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "To:",
+                  "To: ",
                   style: TextStyle(color: Colors.grey[600]),
+                  maxLines: 1,
                 ),
-                Text(
-                  " $toName",
-                  style: TextStyle(color: Colors.grey[600]),
+                Expanded(
+                  child: Text(
+                    "$toName",
+                    style: TextStyle(color: Colors.grey[600]),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 )
               ],
             ),
@@ -88,12 +93,14 @@ class MailTile extends StatelessWidget {
                 ),
                 Flexible(
                     flex: 1,
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: mail.isFavourite
-                          ? Icon(Icons.star,color: Colors.orange,)
-                          : Icon(Icons.star_border),
-                      onPressed: () =>mail.changeFavourite(),
+                    child: Consumer<Mail>(
+                      builder: (x,y,z){return IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: mail.isFavourite
+                            ? Icon(Icons.star,color: Colors.orange,)
+                            : Icon(Icons.star_border),
+                        onPressed: () =>mail.changeFavourite(),
+                      );},
                     ))
               ],
             ),

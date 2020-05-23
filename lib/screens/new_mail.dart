@@ -113,15 +113,12 @@ class NewMail extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey),
-        title: Text("Compose"),
+        iconTheme: IconThemeData(color: Colors.grey[600]),
+        title: Text("Compose",style: TextStyle(color: Colors.grey[600]),),
         backgroundColor: Colors.white,
         elevation: 0,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.attachment),
-            onPressed: () {},
-          ),
+
           IconButton(
               icon: Icon(Icons.send),
               onPressed: () {

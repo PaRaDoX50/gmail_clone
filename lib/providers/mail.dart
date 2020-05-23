@@ -16,10 +16,16 @@ class Mail extends ChangeNotifier{
 
   Mail({@required this.to,@required this.from,@required this.subject,@required this.description,@required this.date,this.isFavourite = false});
 
-  void changeFavourite() async {
+  Future<bool> changeFavourite() async {
 
     Mails().updateMail(date, !isFavourite).then((_){isFavourite = !isFavourite;
-    notifyListeners();});
+
+    notifyListeners();
+    return true;
+    });
+    return true;
+
+
 
 
   }

@@ -16,13 +16,12 @@ class _MailListState extends State<MailList> {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<Mails>(context);
-//    final allMails = await data.mails;
-//    final int count = allMails.length;
+
     return FutureBuilder<List<Mail>>(
         future: data.getAllMails(),
         builder: (context, AsyncSnapshot<List<Mail>> snapshot) {
-          if (snapshot.hasData) {
-            return CustomScrollView(slivers: <Widget>[
+          return CustomScrollView(
+            slivers: <Widget>[
               SliverAppBar(
                 floating: true,
                 backgroundColor: Colors.transparent,
@@ -42,28 +41,33 @@ class _MailListState extends State<MailList> {
                       style: TextStyle(color: Colors.grey[600]),
                     )),
               ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (_, index) {
-                    return ChangeNotifierProvider.value(
-                        value: snapshot.data[index],
-                        child: Dismissible(
-                          background: Container(color: Colors.red,),
-                          key: UniqueKey(),
-                          child: MailTile(),
-                          onDismissed: (_)  {
-                              String date = snapshot.data[index].date.toIso8601String();
-                              snapshot.data.removeAt(index);
-                              data.deleteMailWithDate(date);
-                          },
-                        ));
-                  },
-                  childCount: snapshot.data.length,
-                ),
-              )
-            ]);
-          }
-          return Center(child: CircularProgressIndicator());
+              snapshot.hasData
+                  ? SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (_, index) {
+                          return ChangeNotifierProvider.value(
+                              value: snapshot.data[index],
+                              child: Dismissible(
+                                background: Container(
+                                  color: Colors.red,
+                                ),
+                                key: UniqueKey(),
+                                child: MailTile(),
+                                onDismissed: (_) {
+                                  String date = snapshot.data[index].date
+                                      .toIso8601String();
+                                  snapshot.data.removeAt(index);
+                                  data.deleteMailWithDate(date);
+                                },
+                              ));
+                        },
+                        childCount: snapshot.data.length,
+                      ),
+                    )
+                  : SliverFillRemaining(
+                      child: Center(child: CircularProgressIndicator())),
+            ],
+          );
         });
   }
 }

@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+        textTheme: ThemeData.light().textTheme.copyWith(subtitle: TextStyle(color: Colors.grey[600],fontSize: 15,fontWeight: FontWeight.normal))
         ),
         home: Home(),
         routes: {
