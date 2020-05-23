@@ -50,6 +50,34 @@ class _MailListState extends State<MailList> {
                               child: Dismissible(
                                 background: Container(
                                   color: Colors.red,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                        color: Colors.red,
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              10, 10, 0, 10.0),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        color: Colors.red,
+                                        child: Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                              0.0, 10, 10.0, 10),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 key: UniqueKey(),
                                 child: MailTile(),
